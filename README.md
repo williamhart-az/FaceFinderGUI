@@ -54,6 +54,58 @@ python facefinder_gui.py
     * **First Run:** Leave "Skip Indexing" **unchecked**. The app will scan every face and build the database.
     * **Subsequent Runs:** Check **"Skip Indexing"**. The app will load the existing database and perform the search instantly.
 
+# 🚀 How to Run FaceFinder with `uv`
+
+This project is optimized for [uv](https://github.com/astral-sh/uv), an extremely fast Python package manager. It handles Python versions and dependencies automatically.
+
+## 1. Install uv (Windows)
+
+Open **PowerShell** (Start Menu -> type "PowerShell") and paste this command:
+
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+*Tip: You may need to close and reopen PowerShell after installing for the 'uv' command to be recognized.*
+
+## 2. Run the Application (The Easy Way)
+
+You do not need to manually create virtual environments or install pip packages. `uv` does it all in one step.
+
+Open your terminal in this folder and run:
+
+```bash
+uv run facefinder_gui.py
+```
+
+**What happens next?**
+1. `uv` checks the script for required libraries (`deepface`, `pandas`, etc.).
+2. It creates a temporary, isolated environment.
+3. It installs the libraries instantly.
+4. It launches the GUI.
+
+---
+
+## Alternative: Set up a Permanent Environment
+
+If you prefer to "install" the project permanently in this folder:
+
+1. **Initialize the project:**
+   ```bash
+   uv init
+   ```
+
+2. **Add the dependencies (runs once):**
+   ```bash
+   uv add deepface pandas numpy pillow tf-keras
+   ```
+
+3. **Run the script:**
+   ```bash
+   uv run facefinder_gui.py
+   ```
+
+
 ## ⚙️ Configuration Details
 
 * **ArcFace + Cosine:** The "Gold Standard" for recognition.
