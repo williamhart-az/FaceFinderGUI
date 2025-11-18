@@ -68,6 +68,77 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 *Tip: You may need to close and reopen PowerShell after installing for the 'uv' command to be recognized.*
 
+# FaceFinderGUI[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+A Python-based GUI application for face detection and recognition, powered by TensorFlow.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+## Prerequisites
+
+- Python 3.8+
+- [uv](https://github.com/astral-sh/uv) (for dependency management)[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+- Windows (for the specific GPU setup instructions below)
+
+## Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/williamhart-az/FaceFinderGUI.git
+   cd FaceFinderGUI
+   ```[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+2. **Install dependencies**
+   Use `uv` to set up your environment and install the required packages:
+   ```bash
+   uv sync
+   ```[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+---
+
+## Windows GPU Setup (The "DLL Drop")[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+To enable GPU acceleration with TensorFlow on Windows without a full system-wide CUDA installation, follow these specific steps to "drop" the required DLLs directly into your script folder.
+
+### 1. Get the CUDA 11.2 DLLs
+1. Go to the **[NVIDIA CUDA Toolkit 11.2.2 Archive](https://developer.nvidia.com/cuda-11.2.2-download-archive)**.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+2. **Download**: Select **Windows** -> **x86_64** -> **10** (or 11) -> **exe (local)**.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+3. **Extract**: You don't actually have to install it.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)] You can open the `.exe` file with **7-Zip** (Right-click -> 7-Zip -> Open archive).[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)] Alternatively, you can install it, copy the files, and then uninstall.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+4. **Find & Copy**: Locate the following files inside the `bin/` folder of the archive and copy them to your script folder (the same folder where `faceFindGUI_0.1.py` is located):
+
+   - `cudart64_110.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+   - `cublas64_11.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+   - `cublasLt64_11.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+   - `cufft64_10.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+   - `cusparse64_11.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+### 2. Get the cuDNN 8.1 DLLs
+TensorFlow needs the Deep Neural Network library (cuDNN) to match CUDA 11.2.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+1. Go to the **[NVIDIA cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive)**.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)][[2](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQG7rtfyOHhoQkxQI4wRWmXu8hyP7CGazlDchAqEdejsFheKOSzAOS9084pGQjZhMsRNuJfjQCn4JD543Uy71r2ItARN6pxZ7U2z_rb5AXVOt2UvtQbxoyo45JLiJo5MIt_y7L47eQ5hET3bzxhnnaZc_kZ9zL4iaEwnmq7f8tqfJ4Y3vdFxexIX6gqf9EaWxDIqRcf94nJOXRmeCUj1cd52ig%3D%3D)][[3](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQEc3i-MmXHD28jkZIaenZPMNGT10_8KYds3Pmd4mpx5060rg3xVnn0fhGKn83cVfii4ux8l2I0MoDf8LtlSFm1atDlxdVYIoPZe1xk9sZywh7Nsev5JupofqJiGsXSmw7qCSydqoFA%3D)]
+2. **Download**: Select **"Download cuDNN v8.1.1 (Feb 26th, 2021), for CUDA 11.0, 11.1 and 11.2"**.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+   *(Note: You will need an NVIDIA developer account to download this, or you can search for "cudnn 8.1 windows zip" on a trusted mirror).*[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+3. **Extract**: Unzip the downloaded file.
+4. **Find & Copy**: Locate the following file inside the `bin/` folder and copy it to your script folder:
+
+   - `cudnn64_8.dll`[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+### 3. Verification
+Once those ~6 DLL files are sitting in your folder (e.g., `C:\Users\YourName\Downloads\`) next to `faceFindGUI_0.1.py`:
+
+1. Run the `uv` command again to start the application.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+2. TensorFlow will check the current directory first, find the DLLs, and initialize the GPU.[[1](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFw-X6w7hd81YaClRSeHugONpyTP36pQwuBsAxo3-O8y3gw6UhSkeb00Dn-qH_lJ5fjyPhQLFNEFzUdnUcNhpj_EV3H4ARunebuOa1HxopVbKNJfZ9h6TLWAsLLOrpJJZGYqgU9rW5n-D_T2RjDxnKc3-RRNfND9lIjZtxWSp6gf8wcURYhdtstr28d4P-NyBF7EHcF4J-QNgz0hEMrjT6tVbrbDanPNGBmrZlx1PRQRofwFI2OgL0K)]
+
+You should see the following success message in your console:
+
+> ✅ **GPU DETECTED**
+
+---
+
+## Usage
+
+Run the application using `uv`:
+
+```bash
+uv run faceFindGUI_0.1.py
 ## 2. Run the Application (The Easy Way)
 
 You do not need to manually create virtual environments or install pip packages. `uv` does it all in one step.
