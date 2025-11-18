@@ -1,3 +1,12 @@
+# /// script
+# dependencies = [
+#     "deepface",
+#     "pandas",
+#     "numpy",
+#     "pillow",
+#     "tf-keras",
+# ]
+# ///
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext, simpledialog
 import os
